@@ -3,7 +3,7 @@ import ContactIcons from "./ContactIcons";
 const Hero = () => {
     return (
     <div className=" flex justify-between items-center w-screen h-screen overflow-hidden">
-        <div className="absolute w-1/3 left-40 rounded-3xl p-5 shadow-xl bg-transparent">
+        <div className="absolute z-10 h-fit w-96 left-40 rounded-3xl p-5 shadow-xl bg-transparent">
                 <h1 className="text-5xl font-bold text-center dark:text-white">
                  and, yes 
                     <br/> I am the <b>CODER</b>
