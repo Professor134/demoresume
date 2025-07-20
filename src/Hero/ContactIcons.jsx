@@ -3,7 +3,7 @@ import { FaPhoneAlt ,FaEnvelope ,FaLinkedin ,FaPinterestP ,FaDownload} from "rea
 
 const ContactIcons = () => {
   return (
-    <div className="bg-transparent backdrop-blur-md rounded-xl p-5 shadow-lg w-14 flex flex-col items-center space-y-4">
+    <div className="pt-56 bg-transparent backdrop-blur-md rounded-xl p-5 shadow-lg w-14 flex flex-col items-center space-y-4">
 
       {/* Phone */}
       <a

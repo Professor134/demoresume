@@ -9,6 +9,7 @@ import Profile from './Profile/Profilee';
 import Contact from './components/Contact';
 import VideoIntro from './components/VideoIntro';
 import Footer from './Hero/Footer';
+import Simple from './components/Simple1';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true); // Track whether to show intro video
@@ -17,18 +18,18 @@ function App() {
     setShowIntro(false); // Hide the intro and show main content
   };
   return (
-    <div className="h-fit bg-gray-100 text-center">
+    <div className="h-full bg-gray-100 text-center">
       {showIntro ? (
         <VideoIntro onEnd={handleVideoEnd} />
       ) : (
-      <div className="relative  bg-background text-foreground h-fit">
+      <div className="relative  bg-background text-foreground h-full">
         <BgBlur />
         <Navbar />
         <div className="relative z-10">
-          <section id="home" className="h-fit justify-center  bg-transparent ">
+          <section id="home" className="h-full justify-center  bg-transparent ">
             <Hero/>
           </section>
-          <section id="profile" className="h-fit justify-center bg-transparent" >
+          <section id="profile" className="h-full justify-center bg-transparent" >
             <Profile/>
           </section>
           <section id="skills" className="h-fit justify-center bg-transparent ">
@@ -43,7 +44,9 @@ function App() {
           <section id="footer" className="h-fit justify-center bg-transparent ">
             <Footer/>
           </section>
+
         </div>
+        <Simple />
       </div>
       )}
     </div>
