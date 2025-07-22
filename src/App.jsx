@@ -2,14 +2,14 @@ import React ,{ useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './Hero/Hero';
 import './App.css'
-import ProjectSlider from './Project/ProjectSlider';
 import BgBlur from './components/BgBlur';
 import SkillShowcase from './Skill/SkillShowcase';
 import Profile from './Profile/Profilee';
 import Contact from './components/Contact';
 import VideoIntro from './components/VideoIntro';
 import Footer from './Hero/Footer';
-import Simple from './components/Simple1';
+import ProjectArea from './Projectpage/ProjectArea';
+
 
 function App() {
   const [showIntro, setShowIntro] = useState(true); // Track whether to show intro video
@@ -22,10 +22,10 @@ function App() {
       {showIntro ? (
         <VideoIntro onEnd={handleVideoEnd} />
       ) : (
-      <div className="relative  bg-background text-foreground h-full">
+      <div className=" h-fit bg-background text-foreground ">
         <BgBlur />
         <Navbar />
-        <div className="relative z-10">
+
           <section id="home" className="h-full justify-center  bg-transparent ">
             <Hero/>
           </section>
@@ -36,7 +36,7 @@ function App() {
             <SkillShowcase/> 
           </section>
           <section id="projects" className="h-fit justify-center bg-transparent ">
-          <ProjectSlider />
+            <ProjectArea />
           </section>
           <section id="contact" className="h-fit justify-center bg-transparent ">
             <Contact/>
@@ -44,12 +44,9 @@ function App() {
           <section id="footer" className="h-fit justify-center bg-transparent ">
             <Footer/>
           </section>
-
-        </div>
-        <Simple />
       </div>
       )}
-    </div>
+    // </div>
     
   );
 }

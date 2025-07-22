@@ -71,6 +71,9 @@ npm install --save @fortawesome/react-fontawesome
 
 # frame-motion
 npm install framer-motion
+
+npm install framer-motion react-intersection-observer
+
 # rive 
 npm install @rive-app/react-canvas
 

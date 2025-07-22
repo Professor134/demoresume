@@ -1,94 +1,103 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ContactIcons from "./ContactIcons";
+import React from "react";
+import { useInView } from "react-intersection-observer";
+import SolidTriangle from "./SolidTriangle";
+import ImageTriangle from "./ImageTriangle";
 import Typewriter from "./Typewriter";
+import { motion } from "framer-motion";
+
 
 const Hero = () => {
-  const [step, setStep] = useState(0);
-
-  const text = `Passionate and self-motivated IT Diploma student specializing in full-stack web development.
-                Skilled in modern frontend and backend technologies.  
-                Eager to work on real-world challenges, contribute to innovative teams, and continuously learn in the tech domain.`;
-
-  const handleClick = () => {
-    setStep(1); // Start the animation process
-    setTimeout(() => {
-      setStep(2); // Show new image
-    }, 1000);
-    setTimeout(() => {
-      setStep(3); // Start typewriter
-    }, 3000);
-    setTimeout(() => {
-      setStep(4); // Slide new image out
-    }, 15000);
-    setTimeout(() => {
-      setStep(0); // Reset everything
-    }, 20000);
-  };
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.7, 
+  });
 
   return (
-    <div className="relative w-full h-screen bg-transparent overflow-hidden">
-      {/* Button to start animation */}
-      <button
-        onClick={handleClick}
-        className="absolute z-50 top-44 left-100 px-6 py-2 bg-transparent text-transparent rounded-xl shadow-xl"
-      >
-        🧱
-      </button>
+    <div
+      ref={ref}
+      className="relative w-full h-screen rounded-xl bg-transparent overflow-hidden"
+    >
+      <div className="w-[30%] h-screen float-left bg-gray-800 dark:bg-white rounded-l-xl">
+        
+      </div>
 
-      {/* Text Section */}
-      <AnimatePresence>
-        {step === 0 || step === 3 || step === 4 ? (
+      <motion.div
+        className="w-[70%] h-screen float-right bg-white dark:bg-gray-800 rounded-r-xl"
+        initial={{ opacity: 0, x: 100 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 1 }}
+      >
+        <div className="flex flex-col items-center justify-center h-full p-8 text-center space-y-6">
+          
           <motion.div
-            key="text"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute z-10 h-fit w-96 left-40 top-20 rounded-3xl p-5 shadow-xl bg-transparent"
+            initial={{ opacity: 0, y: -40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.2 }}
           >
-            <h1 className="text-5xl font-bold text-left dark:text-white">
-              and, yes <br /> I am the <b>CODER</b>
-            </h1>
-            <hr className="text-white my-2" />
-            <p className="text-lg text-center dark:text-white">
-              {step === 3 ? <Typewriter text={text} /> : text}
+            <p className="text-6xl font-bold dark:text-white/60 text-black/40">Hi, I&apos;m</p>
+            <p className="text-6xl font-bold dark:text-violet-600 text-emerald-500">Parth Chavan</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.4 }}
+          >
+            <p className="text-xl font-medium text-black/70 dark:text-white/70">
+              Full Stack Developer | Tech Explorer
             </p>
           </motion.div>
-        ) : null}
-      </AnimatePresence>
 
-      <ContactIcons />
+          <motion.div
+            className="max-w-2xl text-base text-gray-600 dark:text-gray-300 space-y-2"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 1.6 }}
+          >
+            <h1>
+              <Typewriter text="Passionate about building interactive web apps and backend systems." />
+            </h1>
+            <h1>
+              <Typewriter text="Always exploring new technologies and turning ideas into scalable software." />
+            </h1>
+          </motion.div>
 
-      {/* Image Section */}
-      <AnimatePresence mode="wait">
-        {/* Original Image (bg11) */}
-        {(step === 0 || step === 4) && (
-            <motion.img
-            key="image1"
-            src="bg11.png"
-            alt="Original"
-            initial={{ x: step === 0 ? 0 : "100%" }} // animate in from left if returning
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 1 }}
-            className="absolute left-[500px] top-0 h-full object-cover"
-            />
-        )}
+          <motion.div
+            className="flex gap-4 mt-4"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 1.8 }}
+          >
+            <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-6 py-2 text-white bg-emerald-400 dark:bg-violet-600 hover:bg-emerald-600 dark:hover:bg-violet-700 rounded-xl transition duration-300"
+                onClick={() => {
+                  const section = document.getElementById("projects");
+                  if (section) section.scrollIntoView({ behavior: "smooth" });
+                }}
+            >
+              View My Work
+            </motion.button>
 
-        {/* New Image (bg111) */}
-        {(step === 2 || step === 3) && (
-            <motion.img
-            key="image2"
-            src="bg111.png"
-            alt="New"
-            initial={{ x: "130%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "130%" }}
-            transition={{ duration: 1 }}
-            className="absolute left-[500px] top-0 h-full object-cover"
-            />
-        )}
-        </AnimatePresence>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition duration-300"
+              onClick={() => {
+                  const section = document.getElementById("contact");
+                  if (section) section.scrollIntoView({ behavior: "smooth" });
+                }}
+            >
+              Get in Touch
+            </motion.button>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Triangles */}
+      <SolidTriangle isVisible={inView} />
+      <ImageTriangle isVisible={inView} />
     </div>
   );
 };

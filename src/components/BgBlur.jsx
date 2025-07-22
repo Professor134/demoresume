@@ -25,7 +25,7 @@ const BgBlur = ({ baseCount = 4 }) => {
   const [blobs, setBlobs] = useState([]);
 
   useEffect(() => {
-  const maxPageHeight = window.innerHeight * 3; // assume max 3 screenfuls
+  const maxPageHeight = window.innerHeight * 2.8; // assume max 3 screenfuls
   const estimatedCount = Math.ceil(maxPageHeight / 800) * baseCount;
   setBlobs(generateSpacedBlobs(estimatedCount, maxPageHeight));
 }, [baseCount]);

@@ -7,7 +7,7 @@ import logo_d from "../assets/logo_d.png";
 import { motion } from "framer-motion";
 
 
-const sections = ["home", "profile", "projects", "skills", "contact","footer"];
+const sections = ["home", "profile", "projects", "skills", "contact"];
 
 
 const Navbar = () => {
@@ -41,7 +41,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.nav className="sticky top-0 z-50  p-4 shadow-md rounded-lg"
+    <motion.nav className=" top-0 z-50 rounded-lg"
       initial={{ opacity: 1, x: -1000 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -1000 }}
