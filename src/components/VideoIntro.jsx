@@ -28,13 +28,14 @@ export default function VideoIntro({ onEnd }) {
   }, [onEnd]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center w-full h-[100dvh] sm:h-screen">
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-screen h-screen object-cover"
         muted
         autoPlay
         playsInline
+        preload="auto"
       >
         <source src="/intro.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -42,7 +43,7 @@ export default function VideoIntro({ onEnd }) {
 
       <button
         onClick={onEnd}
-        className="absolute bottom-8 right-8 px-5 py-2 text-sm bg-white/80 hover:bg-white text-black rounded-lg backdrop-blur-md transition duration-300"
+        className="absolute bottom-[env(safe-area-inset-bottom,2rem)] right-[env(safe-area-inset-right,2rem)] px-5 py-2 text-sm bg-white/80 hover:bg-white text-black rounded-lg backdrop-blur-md transition duration-300"
         aria-label="Skip intro video"
       >
         Skip

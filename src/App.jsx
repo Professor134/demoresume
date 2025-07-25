@@ -9,7 +9,7 @@ import Contact from './components/Contact';
 import VideoIntro from './components/VideoIntro';
 import Footer from './Hero/Footer';
 import ProjectArea from './Projectpage/ProjectArea';
-
+import PcRive from 'pc-rive';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true); // Track whether to show intro video
@@ -18,10 +18,10 @@ function App() {
     setShowIntro(false); // Hide the intro and show main content
   };
   return (
-    <div className="h-full bg-gray-100 text-center">
-      {showIntro ? (
-        <VideoIntro onEnd={handleVideoEnd} />
-      ) : (
+    // <div className="h-full bg-gray-100 text-center">
+    //   {showIntro ? (
+    //     <VideoIntro onEnd={handleVideoEnd} />
+    //   ) : (
       <div className=" h-fit bg-background text-foreground ">
         <BgBlur />
         <Navbar />
@@ -44,8 +44,11 @@ function App() {
           <section id="footer" className="h-fit justify-center bg-transparent ">
             <Footer/>
           </section>
+
+          
       </div>
-      )}
+    //   )}
+      
     // </div>
     
   );

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 const getRandom = (min, max) => Math.random() * (max - min) + min;
 
-
-const generateSpacedBlobs = (totalBlobs, pageHeight) => {
-  const spacing = 2*(pageHeight / totalBlobs );
+const generateSpacedBlobs = (totalBlobs, pageHeight, isMobile) => {
+  const spacing = 2 * (pageHeight / totalBlobs);
   return Array.from({ length: totalBlobs }).map((_, i) => {
-    const size = getRandom(20, 40); // % of viewport width
-    const top = getRandom(i * spacing, (i + 1) * spacing - size * 4); // VH pixel
-    const left = getRandom(0,55); // spread nicely
+    const size = getRandom(isMobile ? 15 : 20, isMobile ? 30 : 40); // reduce size on mobile
+    const top = getRandom(i * spacing, (i + 1) * spacing - size * 4);
+    const left = getRandom(0, isMobile ? 65 : 55);
     const delay = getRandom(0, 4000);
 
     return {
@@ -25,14 +24,15 @@ const BgBlur = ({ baseCount = 4 }) => {
   const [blobs, setBlobs] = useState([]);
 
   useEffect(() => {
-  const maxPageHeight = window.innerHeight * 2.8; // assume max 3 screenfuls
-  const estimatedCount = Math.ceil(maxPageHeight / 800) * baseCount;
-  setBlobs(generateSpacedBlobs(estimatedCount, maxPageHeight));
-}, [baseCount]);
+    const isMobile = window.innerWidth < 768;
+    const maxPageHeight = window.innerHeight * (isMobile ? 2 : 2.8);
+    const estimatedCount = Math.ceil(maxPageHeight / 800) * baseCount;
 
+    setBlobs(generateSpacedBlobs(estimatedCount, maxPageHeight, isMobile));
+  }, [baseCount]);
 
   return (
-    <div className="absolute  inset-0 z-0 pointer-events-none">
+    <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
       {blobs.map(({ key, size, top, left, delay }) => (
         <div
           key={key}
@@ -43,6 +43,8 @@ const BgBlur = ({ baseCount = 4 }) => {
             top,
             left,
             animationDelay: `${delay}ms`,
+            maxWidth: '50vw',
+            maxHeight: '50vw',
           }}
         />
       ))}

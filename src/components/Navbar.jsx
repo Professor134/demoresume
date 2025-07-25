@@ -4,11 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import logo_l from "../assets/logo_l.png";
 import logo_d from "../assets/logo_d.png";
-import { motion } from "framer-motion";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 const sections = ["home", "profile", "projects", "skills", "contact"];
-
 
 const Navbar = () => {
   const [active, setActive] = useState("home");
@@ -19,7 +17,6 @@ const Navbar = () => {
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       setActive(id);
-      setMenuOpen(false);
     }
   };
 
@@ -41,86 +38,80 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.nav className=" top-0 z-50 rounded-lg"
-      initial={{ opacity: 1, x: -1000 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -1000 }}
-      transition={{ duration: 1, ease: "easeInOut" }}
+    <motion.nav
+      className="top-0 z-50 rounded-lg w-full bg-white dark:bg-gray-900 shadow-md px-4 py-2"
+      initial={{ opacity: 0, y: -80 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="container mx-auto flex justify-between items-center">
-          <motion.img 
-            src={logo_l} 
-            alt="Logo" 
-            className="w-20 h-20 block dark:hidden"
+      <div className="container mx-auto flex flex-wrap justify-between items-center">
+        {/* Logo */}
+        <div onClick={() => handleScroll("home")} className="cursor-pointer">
+          <motion.img
+            src={logo_l}
+            alt="Logo"
+            className="w-16 h-16 block dark:hidden"
             initial={{ rotateY: 180 }}
             animate={{ rotateY: 20 }}
             whileHover={{ rotateY: 360 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            onClick={() => setActive("home")}
+            transition={{ duration: 2 }}
           />
-          <motion.img 
-            src={logo_d} 
-            alt="Logo" 
-            className="w-20 h-20 hidden dark:block" 
+          <motion.img
+            src={logo_d}
+            alt="Logo"
+            className="w-16 h-16 hidden dark:block"
             initial={{ rotateY: 180 }}
             animate={{ rotateY: 20 }}
             whileHover={{ rotateY: 360 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            onClick={() => setActive("home")}
+            transition={{ duration: 2 }}
           />
-        {/* Hamburger Icon (mobile) */}
-        <motion.div className="md:hidden"
-          initial={{ rotate: 0, opacity: 0, scale: 0.8 }}
-          animate={{ rotate: 90, opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.7 }}
-          whileHover={{ rotate: 0, scale: 1.1 }}
-          transition={{ duration: .4, ease: "easeInOut" }}
-        >
+        </div>
+
+        {/* Hamburger toggle only for small screens */}
+        <div className="md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className=" text-black  dark:text-white text-2xl focus:outline-none"
+            className="text-black dark:text-white text-2xl focus:outline-none"
           >
-            <FontAwesomeIcon icon={faBars} />           
+            <FontAwesomeIcon icon={faBars} />
           </button>
-        </motion.div>
+        </div>
 
-        <ul className="hidden md:flex space-x-4">
-          <li><ThemeToggle /></li>
-          {sections.map((link) => (
-            <li key={link}>
-              <motion.button onClick={() => handleScroll(link)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200
-                  ${active === link ? 'bg-blue-500 text-white' : 'text-black dark:text-gray-300 hover:bg-gray-700 hover:text-white'}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileTap={{ scale: 0.85 }}
-              >
-                {link.charAt(0).toUpperCase() + link.slice(1)}
-              </motion.button>
-            </li>
-          ))}
-        </ul>
+        {/* Nav Items - horizontal, hidden on small screens unless toggled */}
+        <AnimatePresence>
+          {(menuOpen || window.innerWidth >= 768) && (
+            <motion.ul
+              className={`flex flex-wrap justify-center items-center w-full md:w-auto gap-2 md:gap-4 mt-4 md:mt-0`}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <li><ThemeToggle /></li>
+              {sections.map((link, index) => (
+                <motion.li
+                  key={link}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <button
+                    onClick={() => handleScroll(link)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition duration-200
+                      ${
+                        active === link
+                          ? "bg-blue-500 text-white"
+                          : "text-black dark:text-gray-300 hover:bg-gray-700 hover:text-white"
+                      }`}
+                  >
+                    {link.charAt(0).toUpperCase() + link.slice(1)}
+                  </button>
+                </motion.li>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
       </div>
-
-      {menuOpen && (
-        <ul className="md:hidden mt-2 bg-sky-200/50 dark:bg-gray-700/50 backdrop-blur-md p-4 rounded-md space-y-2">
-          <li><ThemeToggle /></li>
-          {sections.map((link) => (
-            <li key={link}>
-              <motion.button
-                onClick={() => handleScroll(link)}
-                className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200
-                  ${active === link ? 'bg-black dark:bg-blue-500 text-white' : 'text-black hover:bg-gray-600 hover:text-white'}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileTap={{ scale: 0.85 }}
-              >
-                {link.charAt(0).toUpperCase() + link.slice(1)}
-              </motion.button>
-            </li>
-          ))}
-        </ul>   
-      )}
     </motion.nav>
   );
 };
