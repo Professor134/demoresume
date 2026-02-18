@@ -20,7 +20,8 @@ const Hero = () => {
 
         {/* Left Section (Sidebar) */}
         <div className="w-full md:w-[30%] h-[300px] md:h-full bg-gray-800 dark:bg-white rounded-t-xl md:rounded-l-xl md:rounded-tr-none">
-          {/* You can put image/logo/content here later */}
+                <img src="/About.svg" alt="Decoration"  />
+          
         </div>
 
         {/* Right Section (Main Content) */}

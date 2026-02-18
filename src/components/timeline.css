@@ -1,0 +1,80 @@
+/* Container */
+.timeline-container {
+  position: relative;
+  padding: 50px 0;
+  width: 80%;
+  margin: auto;
+}
+
+/* Vertical line anchored center */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  width: 4px;
+  background: #01b7ff;
+  top: 0;
+  height: 0; /* will grow with scroll */
+  transform: translateX(-50%);
+  transition: height 0.2s ease-out;
+}
+
+/* Item base */
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+  margin-bottom: 50px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+/* Alternate sides */
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+/* Active item */
+.timeline-item.active {
+  opacity: 1;
+  transform: scale(1.02);
+  max-height: 400px; /* allow expansion */
+}
+
+/* Content box style */
+.content-box {
+  background: #fafafa;
+  padding: 15px;
+  border-left: 4px solid;
+  border-radius: 6px;
+}
+
+/* Scroll inside if content overflows */
+.content-box .text {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Dot on the line */
+.dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  top: 30px;
+  left: calc(50% - 8px);
+  border: 3px solid white;
+  z-index: 1;
+}
+
+/* Adjust dot vertically with item */
+.timeline-item.right .dot,
+.timeline-item.left .dot {
+  top: 0;
+}

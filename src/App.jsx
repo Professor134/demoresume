@@ -18,10 +18,10 @@ function App() {
     setShowIntro(false); // Hide the intro and show main content
   };
   return (
-    // <div className="h-full bg-gray-100 text-center">
-    //   {showIntro ? (
-    //     <VideoIntro onEnd={handleVideoEnd} />
-    //   ) : (
+    <div className="h-full bg-gray-100 text-center">
+      {showIntro ? (
+        <VideoIntro onEnd={handleVideoEnd} />
+      ) : (
       <div className=" h-fit bg-background text-foreground ">
         <BgBlur />
         <Navbar />
@@ -43,14 +43,10 @@ function App() {
           </section>
           <section id="footer" className="h-fit justify-center bg-transparent ">
             <Footer/>
-          </section>
-
-          
+          </section>        
       </div>
-    //   )}
-      
-    // </div>
-    
+      )}     
+    </div>   
   );
 }
 

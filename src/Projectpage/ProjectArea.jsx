@@ -50,19 +50,16 @@ const ProjectArea = () => {
         </motion.div>
 
         {/* Rive + Buttons */}
-        {/* <motion.div className="relative flex flex-col items-center" variants={fadeInUp(1.5)}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 w-full max-w-md p-2">
-            {["React", "Java", "SpringBoot"].map((label, i) => (
-              <motion.button
-                key={i}
-                whileHover={{ scale: 0.95 }}
-                className="w-full aspect-square bg-green-500 dark:bg-violet-500 rounded-xl text-white font-semibold transition flex items-center justify-center text-[clamp(0.75rem,3vw,1.1rem)] px-2 text-center"
-              >
-                {label}
-              </motion.button>
-            ))}
-          </div>
-        </motion.div> */}
+        <motion.div className="relative flex flex-col items-center" variants={fadeInUp(1.5)}>
+          <motion.button
+            whileHover={{ scale: 0.95 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => window.open("https://github.com/Professor134", "_blank")}
+            className="w-full max-w-xs bg-green-500 dark:bg-violet-500 rounded-xl text-white font-semibold transition px-6 py-3 text-center text-[clamp(1rem,2.5vw,1.2rem)] shadow-md"
+          >
+            🔗 View GitHub Repository
+          </motion.button>
+        </motion.div>
       </motion.div>
 
       {/* Divider only on desktop */}
@@ -88,13 +85,13 @@ const ProjectArea = () => {
                 style={{ backgroundImage: `url(${project.bgImage})` }}
               ></div>
 
-              <div className="absolute bottom-0 right-0 w-full h-fit z-10 flex flex-col justify-end items-end text-right p-4 bg-gradient-to-br from-green-50 via-transparent to-white/60 backdrop-blur-sm space-y-2">
+              <div className="absolute bottom-0 right-0 w-full h-fit z-10 flex flex-col justify-end items-end text-right p-4 bg-gradient-to-br from-green-50 via-transparent to-white/60 backdrop-blur-sm space-y-2 rounded-s-2xl">
                 <h3 className="text-[clamp(0.9rem,2vw,1.2rem)] font-bold">{project.name}</h3>
                 <div className="flex flex-wrap justify-end gap-1">
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="bg-green-500/80 dark:bg-violetNeon/60 text-white px-2 py-0.5 rounded text-[clamp(0.6rem,1.3vw,0.8rem)]"
+                      className="bg-green-500/80 dark:bg-violetNeon/60 text-white px-2 py-0.5 rounded-2xl text-[clamp(0.6rem,1.3vw,0.8rem)]"
                     >
                       {tag}
                     </span>
