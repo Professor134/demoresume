@@ -1,11 +1,10 @@
-import React from 'react';
-import { projects } from './project';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import PcRive from '@/components/PcRive';
+import React, { useState } from "react";
+import { projects } from "./project";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const fadeInUp = (delay = 0) => ({
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -14,106 +13,258 @@ const fadeInUp = (delay = 0) => ({
 });
 
 const ProjectArea = () => {
-  const [leftRef, leftInView] = useInView({ triggerOnce: true, threshold: 0.7 });
+  const [selectedProject, setSelectedProject] = useState(projects[0]);
+
+  const [leftRef, leftInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
 
   return (
-    <div className="w-full h-auto bg-transparent flex flex-col lg:flex-row relative overflow-y-auto no-scrollbar mt-5">
-      {/* Left Side */}
-      <motion.div
-        ref={leftRef}
-        initial="hidden"
-        animate={leftInView ? 'visible' : 'hidden'}
-        variants={fadeInUp(0)}
-        className="w-full lg:w-3/5 h-auto lg:h-screen bg-white dark:bg-gray-600 backdrop-blur-md rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none p-6 flex flex-col justify-between gap-6"
-      >
-        {/* Title */}
-        <motion.div className="text-3xl lg:text-5xl font-bold" variants={fadeInUp(0)}>
-          <h1 className="inline text-black/30 dark:text-white/50">It's My </h1>
-          <h1 className="inline text-green-500 dark:text-violetNeon">Work</h1>
-        </motion.div>
+    <div className="w-full 
+                max-w-full
+                m-0 p-0
+                h-auto
+               ">
 
-        {/* Subtitle */}
-        <motion.div className="text-lg lg:text-3xl" variants={fadeInUp(0.5)}>
-          <h2 className="text-black dark:text-white">A showcase of my recent projects</h2>
-        </motion.div>
+  <div className="max-w-[1300px] mx-auto 
+                  flex flex-col lg:flex-row 
+                  gap-8
+                 ">
 
-        {/* Info Section */}
+        {/* LEFT SIDE */}
         <motion.div
-          className="text-gray-800 dark:text-gray-100 text-sm lg:text-base overflow-y-auto max-h-[300px] lg:max-h-[500px] pr-2"
-          variants={fadeInUp(1)}
+          ref={leftRef}
+          initial="hidden"
+          animate={leftInView ? "visible" : "hidden"}
+          variants={fadeInUp(0)}
+          className="w-full lg:w-3/5 
+                     bg-white/25 dark:bg-[#161621]/25
+                     rounded-2xl 
+                     p-6 sm:p-8 lg:p-12
+                     border border-[#D1FAE5] 
+                     dark:border-[#2E2E3A]
+                     shadow-[0_10px_30px_rgba(16,185,129,0.08)] 
+                     dark:shadow-[0_15px_40px_rgba(0,0,0,0.6)]
+                     flex flex-col justify-between"
         >
-          <p>
-            Welcome to my project collection. Below you'll find several tools,
-            applications, and platforms I've crafted with care.
-            From Frontend to BackEnd systems, each project reflects my growth as a developer.
-          </p>
-        </motion.div>
+          {/* Title */}
+          <div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl 
+                           font-bold leading-tight
+                           text-[#0F172A] dark:text-[#F5F3FF]">
+              It's My{" "}
+              <span className="text-[#16A34A] dark:text-[#7C3AED]">
+                Work
+              </span>
+            </h1>
 
-        {/* Rive + Buttons */}
-        <motion.div className="relative flex flex-col items-center" variants={fadeInUp(1.5)}>
-          <motion.button
-            whileHover={{ scale: 0.95 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => window.open("https://github.com/Professor134", "_blank")}
-            className="w-full max-w-xs bg-green-500 dark:bg-violet-500 rounded-xl text-white font-semibold transition px-6 py-3 text-center text-[clamp(1rem,2.5vw,1.2rem)] shadow-md"
-          >
-            🔗 View GitHub Repository
-          </motion.button>
-        </motion.div>
-      </motion.div>
+            <p className="mt-4 text-base sm:text-lg 
+                          max-w-xl
+                          text-[#334155] dark:text-[#D4D4D8]">
+              A curated showcase of projects reflecting my development journey.
+            </p>
+          </div>
 
-      {/* Divider only on desktop */}
-      <div className="hidden lg:block min-w-[2px] h-[90%] bg-green-600 dark:bg-violetNeon absolute left-[60%] top-[5%] z-10" />
-
-      {/* Right Side */}
-      <div className="w-full lg:w-2/5 h-auto lg:h-screen bg-gray-600 dark:bg-white/80 backdrop-blur-md rounded-b-2xl lg:rounded-r-2xl lg:rounded-bl-none p-4 lg:p-6 overflow-y-auto space-y-4 no-scrollbar">
-        {projects.map((project, index) => {
-          const [ref, inView] = useInView({ threshold: [0.4, 0.7] });
-          const isVisibleEnough = inView;
-
-          return (
-            <motion.div
-              key={index}
-              ref={ref}
-              className="w-full min-h-[18rem] sm:min-h-[22rem] md:min-h-[26rem] lg:min-h-[30rem] rounded-xl shadow-lg text-white relative overflow-hidden border-l-4 border-green-500 dark:border-violetNeon"
-              initial={{ opacity: 0, y: -30 }}
-              animate={isVisibleEnough ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-              transition={{ duration: 0.6 }}
+          GitHub Button
+          <div className="flex justify-center lg:justify-start mt-8">
+            <button
+              onClick={() =>
+                window.open("https://github.com/Professor134", "_blank")
+              }
+              className="bg-[#16A34A] hover:bg-[#15803D]
+                         dark:bg-[#7C3AED] dark:hover:bg-[#6D28D9]
+                         text-white font-semibold 
+                         px-7 py-3 
+                         rounded-full 
+                         transition-all duration-300
+                         shadow-lg text-base"
             >
-              <div
-                className="absolute top-0 left-0 w-full h-full bg-cover bg-center rounded-xl z-0"
-                style={{ backgroundImage: `url(${project.bgImage})` }}
-              ></div>
+              🔗 View GitHub Repository
+            </button>
+          </div>
 
-              <div className="absolute bottom-0 right-0 w-full h-fit z-10 flex flex-col justify-end items-end text-right p-4 bg-gradient-to-br from-green-50 via-transparent to-white/60 backdrop-blur-sm space-y-2 rounded-s-2xl">
-                <h3 className="text-[clamp(0.9rem,2vw,1.2rem)] font-bold">{project.name}</h3>
-                <div className="flex flex-wrap justify-end gap-1">
-                  {project.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="bg-green-500/80 dark:bg-violetNeon/60 text-white px-2 py-0.5 rounded-2xl text-[clamp(0.6rem,1.3vw,0.8rem)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+          {/* Selected Project Preview */}
+          <div className="hidden lg:block mt-8">
+            <div className="rounded-xl overflow-hidden 
+                            border-2 
+                            border-[#16A34A] 
+                            dark:border-[#7C3AED]">
+              <img
+                src={selectedProject.bgImage}
+                alt={selectedProject.name}
+                className="w-full h-72 object-cover"
+              />
+            </div>
+
+            <div className="mt-6 space-y-4">
+              <h2 className="text-2xl font-semibold 
+                             text-[#0F172A] 
+                             dark:text-[#F5F3FF]">
+                {selectedProject.name}
+              </h2>
+
+              <p className="text-base leading-relaxed
+                            text-[#334155] 
+                            dark:text-[#D4D4D8]">
+                {selectedProject.description}
+              </p>
+
+              <a
+                href={selectedProject.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-3
+                           bg-[#16A34A] hover:bg-[#15803D]
+                           dark:bg-[#7C3AED] dark:hover:bg-[#6D28D9]
+                           text-white font-medium 
+                           px-7 py-3 
+                           rounded-full 
+                           transition-all duration-300
+                           shadow-lg"
+              >
+                Visit Project
+              </a>
+            </div>
+          </div>
+
+          
+        </motion.div>
+
+        {/* RIGHT SIDE */}
+        <div
+          className="
+            w-full lg:w-2/5
+            lg:max-h-[780px]
+            overflow-y-auto
+            pr-1 sm:pr-2
+            space-y-5 sm:space-y-6
+             bg-white/25 dark:bg-[#161621]/25
+                     rounded-2xl 
+            no-scrollbar
+            "
+        >
+          {projects.map((project, index) => {
+            const [ref, inView] = useInView({
+              triggerOnce: true,
+              threshold: 0.2,
+            });
+
+            const isSelected = selectedProject.name === project.name;
+
+            return (
+              <motion.div
+                key={index}
+                ref={ref}
+                onClick={() => setSelectedProject(project)}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6 }}
+                className={`cursor-pointer
+                  rounded-2xl
+                  overflow-hidden
+                  border
+                  transition-all duration-300 ease-in-out
+                  ${
+                    isSelected
+                      ? `
+                        border-[#16A34A]
+                        dark:border-[#7C3AED]
+                        scale-[1.02]
+                        shadow-[0_10px_25px_rgba(22,163,74,0.18)]
+                        dark:shadow-[0_0_25px_rgba(124,58,237,0.35)]
+                      `
+                      : `
+                        border-[#D1FAE5]
+                        dark:border-[#2E2E3A]
+                        hover:shadow-[0_8px_20px_rgba(22,163,74,0.1)]
+                        dark:hover:shadow-[0_0_20px_rgba(124,58,237,0.25)]
+                      `
+                  }
+                  bg-white
+                  dark:bg-[#161621]`}
+              >
+                {/* Image */}
+                <div
+                  className="w-full
+                            h-60 sm:h-64 lg:h-72
+                            bg-cover bg-center"
+                  style={{ backgroundImage: `url(${project.bgImage})` }}
+                />
+
+                {/* Content */}
+                <div className="p-4 sm:p-5 lg:p-6 space-y-3 sm:space-y-4 bg-white/5">
+                  <h3
+                    className="text-lg sm:text-xl
+                              font-semibold
+                              leading-snug
+                              text-[#0F172A]
+                              dark:text-[#F5F3FF]"
+                  >
+                    {project.name}
+                  </h3>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className={`text-xs sm:text-sm
+                                    px-3 py-1
+                                    rounded-full
+                                    font-medium
+                                    transition-all
+                          ${
+                            isSelected
+                              ? `
+                                bg-[#16A34A]
+                                text-white
+                                dark:bg-[#7C3AED]
+                              `
+                              : `
+                                bg-[#DCFCE7]
+                                text-[#166534]
+                                dark:bg-[#7C3AED]/20
+                                dark:text-[#C4B5FD]
+                              `
+                          }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p
+                    className="text-sm sm:text-[15px]
+                              leading-relaxed
+                              text-[#334155]
+                              dark:text-[#D4D4D8]
+                              break-words"
+                  >
+                    {project.description}
+                  </p>
+
+                  {/* Visit Project Button for all screen sizes */}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-3
+                              bg-[#16A34A] hover:bg-[#15803D]
+                              dark:bg-[#7C3AED] dark:hover:bg-[#6D28D9]
+                              text-white font-medium 
+                              px-7 py-3 
+                              rounded-full 
+                              transition-all duration-300
+                              shadow-lg"
+                  >
+                    Visit Project
+                  </a>
                 </div>
-
-                <p className="text-[clamp(0.65rem,1.2vw,0.9rem)] text-black/80">
-                  {project.description}
-                </p>
-
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-emerald-500 dark:bg-violet-600 hover:bg-emerald-600 dark:hover:bg-violet-700 text-white font-semibold py-1 px-3 text-[clamp(0.65rem,1.2vw,0.9rem)] rounded transition"
-                >
-                  Visit My Site
-                </a>
-              </div>
-            </motion.div>
-          );
-        })}
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

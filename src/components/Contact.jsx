@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
 import PcRive from "pc-rive";
-// import PcRive from "./PcRive";
 
 const socialLinks = [
   {
@@ -44,12 +43,7 @@ const Contact = () => {
     e.preventDefault();
 
     emailjs
-      .send(
-        "asdfghjkl", // Replace with your EmailJS service ID
-        "template_6w58h5h", // Replace with your EmailJS template ID
-        formData,
-        "5hKDZVDQ2RbulJaAy" // Replace with your EmailJS public key
-      )
+      .send("asdfghjkl", "template_6w58h5h", formData, "5hKDZVDQ2RbulJaAy")
       .then(
         () => {
           setStatus("Message sent successfully!");
@@ -62,113 +56,123 @@ const Contact = () => {
   };
 
   return (
-    <div className="relative mt-5 max-h-screen overflow-y-auto no-scrollbar px-4 sm:px-6">
-      <div className="w-full flex flex-col md:flex-row rounded-xl shadow-xl bg-gray-800 backdrop-blur-md overflow-hidden">
-        {/* Left Side */}
-        <div className="w-full md:w-1/2 bg-gray-600 flex items-center justify-center p-4">
-          <div className="w-full h-64 sm:h-80 md:h-full">
-            <PcRive
-              src="contact.riv"
-              stateMachines="State Machine 1"
-              autoplay={true}
-              className="w-full h-full object-contain"
-            />
-          </div>
-        </div>
+ <div className="relative w-full m-0 p-0 bg-transparent transition-colors duration-500">
+  <div className="w-full max-w-full mx-auto rounded-2xl overflow-hidden shadow-xl border border-[#D1FAE5] dark:border-[#2E2E3A] bg-white dark:bg-[#161621] transition-colors duration-500">
+      
+        <div className="flex flex-col md:flex-row">
 
-        {/* Right Side */}
-        <motion.div
-          className="w-full md:w-1/2 p-6 sm:p-10 bg-black text-white flex flex-col justify-center"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <motion.h2
-            className="text-2xl sm:text-3xl font-bold mb-6 text-green-500 dark:text-violetNeon"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          {/* Left Side Animation */}
+          <div className="w-full md:w-1/2 bg-[#ECFDF5] dark:bg-[#111118] flex items-center justify-center p-6 md:p-10">
+            <div className="w-full max-w-md h-72 sm:h-80 md:h-[420px]">
+              <PcRive
+                src="contact.riv"
+                stateMachines="State Machine 1"
+                autoplay={true}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Right Side Form */}
+          <motion.div
+            className="w-full md:w-1/2 p-8 sm:p-10 lg:p-14 text-[#0F172A] dark:text-[#F5F3FF] flex flex-col justify-center"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Contact Form
-          </motion.h2>
-
-          <form onSubmit={sendEmail} className="space-y-4">
-            <motion.input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full border border-green-500 dark:border-violetNeon rounded-md p-2 focus:outline-none bg-white text-black"
-              required
-              whileFocus={{ scale: 1.02 }}
-            />
-
-            <motion.input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full border border-green-500 dark:border-violetNeon rounded-md p-2 focus:outline-none bg-white text-black"
-              required
-              whileFocus={{ scale: 1.02 }}
-            />
-
-            <motion.textarea
-              name="message"
-              placeholder="Comment or message"
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full border border-green-500 dark:border-violetNeon rounded-md p-2 focus:outline-none bg-white text-black"
-              rows="4"
-              required
-              whileFocus={{ scale: 1.02 }}
-            ></motion.textarea>
-
-            <motion.button
-              type="submit"
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white rounded-md py-2 transition"
-              whileTap={{ scale: 0.97 }}
-              whileHover={{ scale: 1.02 }}
+            <motion.h2
+              className="text-3xl sm:text-4xl font-bold mb-8 text-[#16A34A] dark:text-[#7C3AED]"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
             >
-              Submit
-            </motion.button>
+              Contact Form
+            </motion.h2>
 
-            {status && (
-              <motion.p
-                className="text-sm text-green-500 dark:text-violetNeon"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                {status}
-              </motion.p>
-            )}
-          </form>
+            <form onSubmit={sendEmail} className="space-y-5">
 
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
-            {socialLinks.map((link, idx) => (
-              <motion.a
-                key={idx}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.08, rotate: 2 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shadow-lg border-white/30 backdrop-blur-md"
-                title={link.label}
+              {/* Full Name */}
+              <motion.input
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+                whileFocus={{ scale: 1.02 }}
+                className="w-full rounded-xl px-4 py-3 bg-white dark:bg-[#1E1E2A] border border-[#A7F3D0] dark:border-[#2E2E3A] focus:border-[#16A34A] dark:focus:border-[#7C3AED] focus:ring-2 focus:ring-[#16A34A]/30 dark:focus:ring-[#7C3AED]/30 outline-none transition-all"
+              />
+
+              {/* Email */}
+              <motion.input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                whileFocus={{ scale: 1.02 }}
+                className="w-full rounded-xl px-4 py-3 bg-white dark:bg-[#1E1E2A] border border-[#A7F3D0] dark:border-[#2E2E3A] focus:border-[#16A34A] dark:focus:border-[#7C3AED] focus:ring-2 focus:ring-[#16A34A]/30 dark:focus:ring-[#7C3AED]/30 outline-none transition-all"
+              />
+
+              {/* Message */}
+              <motion.textarea
+                name="message"
+                placeholder="Comment or message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="4"
+                required
+                whileFocus={{ scale: 1.02 }}
+                className="w-full rounded-xl px-4 py-3 bg-white dark:bg-[#1E1E2A] border border-[#A7F3D0] dark:border-[#2E2E3A] focus:border-[#16A34A] dark:focus:border-[#7C3AED] focus:ring-2 focus:ring-[#16A34A]/30 dark:focus:ring-[#7C3AED]/30 outline-none transition-all resize-none"
+              />
+
+              {/* Submit Button */}
+              <motion.button
+                type="submit"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.03 }}
+                className="w-full py-3 rounded-full font-medium text-white bg-[#16A34A] hover:bg-[#15803D] dark:bg-[#7C3AED] dark:hover:bg-[#6D28D9] shadow-md hover:shadow-lg transition-all duration-300"
               >
-                <video
-                  src={link.video}
-                  autoPlay
-                  muted
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+                Submit Message
+              </motion.button>
+
+              {status && (
+                <motion.p
+                  className="text-sm text-[#16A34A] dark:text-[#A78BFA] mt-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  {status}
+                </motion.p>
+              )}
+            </form>
+
+            {/* Social Links */}
+            <div className="flex flex-wrap justify-center md:justify-start gap-5 mt-10">
+              {socialLinks.map((link, idx) => (
+                <motion.a
+                  key={idx}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-[#D1FAE5] dark:border-[#2E2E3A] shadow-md hover:shadow-lg transition-all"
+                  title={link.label}
+                >
+                  <video
+                    src={link.video}
+                    autoPlay
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

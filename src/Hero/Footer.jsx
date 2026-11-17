@@ -9,100 +9,99 @@ import {
 } from "react-icons/fa";
 
 const socialLinks = [
-  {
-    icon: <FaLinkedin size={24} />,
-    url: "https://www.linkedin.com/in/parth-chavan-6284152a8",
-    label: "LinkedIn",
-  },
-  {
-    icon: <FaGithub size={24} />,
-    url: "https://github.com/Professor134",
-    label: "GitHub",
-  },
-  {
-    icon: <FaInstagram size={24} />,
-    url: "https://www.instagram.com/parthchavan653/",
-    label: "Instagram",
-  },
-  {
-    icon: <FaPinterest size={24} />,
-    url: "https://pin.it/11BuroVx1",
-    label: "Pinterest",
-  },
-  {
-    icon: <FaWhatsapp size={24} />,
-    url: "https://wa.me/qr/7WYVGT4ISCPJL1",
-    label: "WhatsApp",
-  },
+  { icon: <FaLinkedin size={22} />, url: "https://www.linkedin.com/in/parth-chavan-6284152a8", label: "LinkedIn" },
+  { icon: <FaGithub size={22} />, url: "https://github.com/Professor134", label: "GitHub" },
+  { icon: <FaInstagram size={22} />, url: "https://www.instagram.com/parthchavan653/", label: "Instagram" },
+  { icon: <FaPinterest size={22} />, url: "https://pin.it/11BuroVx1", label: "Pinterest" },
+  { icon: <FaWhatsapp size={22} />, url: "https://wa.me/qr/7WYVGT4ISCPJL1", label: "WhatsApp" },
 ];
 
 const Footer = () => {
   return (
-    <div className="w-full min-h-[500px] md:h-screen overflow-hidden text-white flex flex-col items-center justify-center rounded-2xl bg-gray-300 mt-5 pt-20 md:pt-32">
-      {/* Content */}
-      <div className="relative z-20 flex flex-col items-center justify-center space-y-6 px-4 text-center w-full">
+    <footer className="w-full bg-[#F9FEFB] dark:bg-[#0B0B0F] text-[#0F172A] dark:text-[#F5F3FF] mt-2 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full flex flex-col items-center">
+
+        {/* Main Card */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-5xl backdrop-blur-md p-6 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-start text-white dark:text-black gap-6"
+          className="w-full bg-white dark:bg-[#161621] 
+          border border-[#D1FAE5] dark:border-[#2E2E3A]
+          rounded-2xl shadow-[0_10px_30px_rgba(16,185,129,0.08)] 
+          dark:shadow-[0_15px_40px_rgba(0,0,0,0.6)]
+          p-6 sm:p-8 flex flex-col lg:flex-row gap-6 lg:gap-10"
         >
+
           {/* Left Section */}
-          <div className="w-full md:w-1/2 space-y-2 text-sm text-left md:text-left">
-            <h3 className="text-lg font-semibold">Parth Chavan</h3>
-            <p>IT Developer & Designer</p>
-            <p>Based in Pune, India</p>
-            <p>
+          <div className="flex-1 space-y-2 sm:space-y-3 text-sm sm:text-base">
+            <h3 className="text-xl font-semibold">Parth Chavan</h3>
+            <p className="text-[#334155] dark:text-[#D4D4D8]">IT Developer & Designer</p>
+            <p className="text-[#64748B] dark:text-[#A1A1AA]">Based in Pune, India</p>
+            <p className="text-[#64748B] dark:text-[#A1A1AA]">
               Email:{" "}
               <a
                 href="mailto:parthchavan653@gmail.com"
-                className="underline hover:text-blue-300"
+                className="underline text-[#16A34A] dark:text-[#A78BFA] hover:opacity-80"
               >
-                parth@example.com
+                parthchavan653@gmail.com
               </a>
             </p>
-            <p>Phone: +91 9145414488</p>
+            <p className="text-[#64748B] dark:text-[#A1A1AA]">Phone: +91 9145414488</p>
           </div>
 
           {/* Divider */}
-          <div className="hidden md:block w-px bg-green-500 h-full mx-4"></div>
-          <div className="md:hidden block w-full bg-green-500 h-px my-2"></div>
+          <div className="hidden lg:block w-px bg-[#D1FAE5] dark:bg-[#2E2E3A]"></div>
 
           {/* Right Section */}
-          <div className="w-full md:w-1/2 space-y-3 flex flex-col items-center text-center">
+          <div className="flex-1 flex flex-col items-center text-center space-y-3 sm:space-y-4">
             <img
-              src="bg11.png"
+              src="ayo.png"
               alt="Parth Chavan"
-              className="w-24 h-24 rounded-full object-cover border-2 border-green-500 shadow-md hover:scale-105 transition-transform duration-300"
+              className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover 
+              border-2 border-[#16A34A] dark:border-[#7C3AED]
+              shadow-md transition-transform duration-300 scale-100 hover:scale-105"
             />
-            <p className="text-sm italic opacity-80">
-              "Devlop to Learn. Learn to Devlop."
+            <p className="text-sm italic text-[#334155] dark:text-[#D4D4D8]">
+              "Develop to Learn. Learn to Develop."
             </p>
-            <p className="text-xs opacity-50">
+            <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#A1A1AA]">
               Passionate about building impactful digital experiences.
             </p>
           </div>
         </motion.div>
 
         {/* Social Icons */}
-        <div className="flex flex-wrap justify-center gap-4 mt-6 px-2">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8">
           {socialLinks.map((link, idx) => (
             <motion.a
               key={idx}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, rotate: 2 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-14 h-14 md:w-20 md:h-20 bg-green-100/20 dark:bg-violetNeon/10 border border-green-500 dark:border-violetNeon text-white dark:text-black flex items-center justify-center rounded-xl shadow-md backdrop-blur-md transition-all"
+              className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center
+              rounded-xl bg-[#ECFDF5] dark:bg-[#1E1E2A]
+              border border-[#16A34A] dark:border-[#7C3AED]
+              text-[#16A34A] dark:text-[#C4B5FD]
+              transition-all duration-300 shadow-sm
+              hover:shadow-[0_10px_20px_rgba(22,163,74,0.25)]
+              dark:hover:shadow-[0_0_25px_rgba(124,58,237,0.35)]"
               title={link.label}
             >
               {link.icon}
             </motion.a>
           ))}
         </div>
+
+        {/* Bottom Copyright */}
+        <p className="text-xs mt-8 text-[#64748B] dark:text-[#A1A1AA] text-center">
+          © {new Date().getFullYear()} Parth Chavan. All rights reserved.
+        </p>
+
       </div>
-    </div>
+    </footer>
   );
 };
 

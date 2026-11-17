@@ -4,10 +4,11 @@ const getRandom = (min, max) => Math.random() * (max - min) + min;
 
 const generateSpacedBlobs = (totalBlobs, pageHeight, isMobile) => {
   const spacing = 2 * (pageHeight / totalBlobs);
+
   return Array.from({ length: totalBlobs }).map((_, i) => {
-    const size = getRandom(isMobile ? 15 : 20, isMobile ? 30 : 40); // reduce size on mobile
+    const size = getRandom(isMobile ? 18 : 22, isMobile ? 32 : 42);
     const top = getRandom(i * spacing, (i + 1) * spacing - size * 4);
-    const left = getRandom(0, isMobile ? 65 : 55);
+    const left = getRandom(0, isMobile ? 70 : 60);
     const delay = getRandom(0, 4000);
 
     return {
@@ -36,15 +37,23 @@ const BgBlur = ({ baseCount = 4 }) => {
       {blobs.map(({ key, size, top, left, delay }) => (
         <div
           key={key}
-          className="absolute rounded-full animate-float bg-blur-gradient-l dark:bg-blur-gradient-d"
+          className="
+            absolute 
+            rounded-full 
+            animate-float 
+            blur-3xl 
+            opacity-40 
+            bg-green-400/40 
+            dark:bg-purple-600/40
+          "
           style={{
             width: size,
             height: size,
             top,
             left,
             animationDelay: `${delay}ms`,
-            maxWidth: '50vw',
-            maxHeight: '50vw',
+            maxWidth: '45vw',
+            maxHeight: '45vw',
           }}
         />
       ))}

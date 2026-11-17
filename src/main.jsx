@@ -9,6 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <App />
     <Toaster richColors position="bottom-right" />
+    
   </BrowserRouter>
 );
 

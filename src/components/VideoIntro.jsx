@@ -7,7 +7,6 @@ export default function VideoIntro({ onEnd }) {
     const video = videoRef.current;
 
     if (video) {
-      // Attempt to play video with safety for autoplay restrictions
       const tryPlay = async () => {
         try {
           await video.play();
@@ -28,27 +27,50 @@ export default function VideoIntro({ onEnd }) {
   }, [onEnd]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center w-full h-[100dvh] sm:h-screen">
+    <div className="fixed inset-0 z-50 bg-[var(--bg-main)] flex items-center justify-center w-full h-[100dvh] overflow-hidden">
+
+      {/* Video */}
       <video
         ref={videoRef}
-        className="w-screen h-screen object-cover"
+        className="w-full h-full object-cover"
         muted
         autoPlay
         playsInline
         preload="auto"
       >
-        <source src="/intro2.mp4" type="video/mp4" />
+        <source src="/ayo.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
+      {/* Subtle Overlay Tint for Theme Feel */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/10 via-transparent to-[var(--primary)]/10 pointer-events-none" />
+
+      {/* Skip Button */}
       <button
         onClick={onEnd}
-        className="absolute bottom-[env(safe-area-inset-bottom,2rem)] right-[env(safe-area-inset-right,2rem)] px-5 py-2 text-sm bg-white/80 hover:bg-white text-black rounded-lg backdrop-blur-md transition duration-300"
         aria-label="Skip intro video"
+        className="
+          absolute
+          bottom-6 right-6
+          sm:bottom-8 sm:right-8
+          px-4 py-2
+          sm:px-6 sm:py-3
+          text-xs sm:text-sm
+          font-medium
+          rounded-full
+          bg-[var(--card-bg)]
+          text-[var(--text-main)]
+          border border-[var(--border)]
+          shadow-lg
+          backdrop-blur-md
+          transition-all duration-300
+          hover:bg-[var(--primary)]
+          hover:text-white
+          hover:shadow-[0_0_20px_rgba(124,58,237,0.35)]
+        "
       >
-        Skip
+        Skip Intro
       </button>
     </div>
   );
 }
-

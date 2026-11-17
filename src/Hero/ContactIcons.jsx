@@ -1,26 +1,62 @@
 import React from "react";
-import { FaPhoneAlt ,FaEnvelope ,FaLinkedin ,FaPinterestP ,FaDownload} from "react-icons/fa";
+import { 
+  FaPhoneAlt,
+  FaEnvelope,
+  FaLinkedin,
+  FaPinterestP,
+  FaDownload
+} from "react-icons/fa";
 
 const ContactIcons = () => {
   return (
-    <div className="pt-56 bg-transparent backdrop-blur-md rounded-xl p-5 shadow-lg w-14 flex flex-col items-center space-y-4">
+    <div className="
+      fixed left-6 top-1/2 -translate-y-1/2
+      flex flex-col items-center space-y-4
+      p-4 rounded-3xl
+      backdrop-blur-xl
+      bg-white/70 dark:bg-[#111827]/80
+      border border-[#E5E7EB] dark:border-[#2D3748]
+      shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+      dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]
+      transition-all duration-300
+    ">
 
       {/* Phone */}
       <a
         href="tel:+919876543210"
-        className="text-xl hover:text-blue-600"
         title="Phone"
+        className="
+          w-11 h-11 flex items-center justify-center
+          rounded-xl
+          text-[#6B7280] dark:text-[#9CA3AF]
+          bg-white dark:bg-[#1F2937]
+          hover:text-white
+          hover:bg-[#FF7A1A]
+          hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]
+          transform hover:-translate-y-1
+          transition-all duration-300
+        "
       >
-        <FaPhoneAlt className="text-xl"/> 
+        <FaPhoneAlt className="text-lg" />
       </a>
 
       {/* Email */}
       <a
         href="mailto:example@email.com"
-        className="text-xl hover:text-blue-600"
         title="Email"
+        className="
+          w-11 h-11 flex items-center justify-center
+          rounded-xl
+          text-[#6B7280] dark:text-[#9CA3AF]
+          bg-white dark:bg-[#1F2937]
+          hover:text-white
+          hover:bg-[#FF7A1A]
+          hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]
+          transform hover:-translate-y-1
+          transition-all duration-300
+        "
       >
-        <FaEnvelope className="text-xl"/> 
+        <FaEnvelope className="text-lg" />
       </a>
 
       {/* LinkedIn */}
@@ -28,10 +64,20 @@ const ContactIcons = () => {
         href="https://www.linkedin.com/in/yourprofile"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xl hover:text-blue-600"
         title="LinkedIn"
+        className="
+          w-11 h-11 flex items-center justify-center
+          rounded-xl
+          text-[#6B7280] dark:text-[#9CA3AF]
+          bg-white dark:bg-[#1F2937]
+          hover:text-white
+          hover:bg-[#FF7A1A]
+          hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]
+          transform hover:-translate-y-1
+          transition-all duration-300
+        "
       >
-        <FaLinkedin className="text-xl"/> 
+        <FaLinkedin className="text-lg" />
       </a>
 
       {/* Pinterest */}
@@ -39,21 +85,42 @@ const ContactIcons = () => {
         href="https://www.pinterest.com/yourprofile"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-xl hover:text-blue-600"
         title="Pinterest"
+        className="
+          w-11 h-11 flex items-center justify-center
+          rounded-xl
+          text-[#6B7280] dark:text-[#9CA3AF]
+          bg-white dark:bg-[#1F2937]
+          hover:text-white
+          hover:bg-[#FF7A1A]
+          hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]
+          transform hover:-translate-y-1
+          transition-all duration-300
+        "
       >
-        <FaPinterestP className="text-xl"/>
+        <FaPinterestP className="text-lg" />
       </a>
 
       {/* Resume Download */}
       <a
-        href="/resume.pdf" // Ensure this file is in your `public` folder
+        href="/resume.pdf"
         download
-        className="text-xl hover:text-green-600"
         title="Download Resume"
+        className="
+          w-11 h-11 flex items-center justify-center
+          rounded-xl
+          text-[#6B7280] dark:text-[#9CA3AF]
+          bg-white dark:bg-[#1F2937]
+          hover:text-white
+          hover:bg-[#FF7A1A]
+          hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]
+          transform hover:-translate-y-1
+          transition-all duration-300
+        "
       >
-        <FaDownload className="text-xl"/>
+        <FaDownload className="text-lg" />
       </a>
+
     </div>
   );
 };
