@@ -4,12 +4,22 @@ import SolidTriangle from "./SolidTriangle";
 import ImageTriangle from "./ImageTriangle";
 import Typewriter from "./Typewriter";
 import { motion } from "framer-motion";
+import { usePortfolio } from "../data/PortfolioContext";
+import { scrollToSection } from "../utils/scrollToSection";
+import { useLenis } from "lenis/react";
 
 const Hero = () => {
+  const portfolio = usePortfolio();
+  const lenis = useLenis();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.4,
   });
+  const moveToSection = (id) => {
+    const target = document.getElementById(id);
+    if (lenis && target) lenis.scrollTo(target, { offset: -76, duration: 1.5 });
+    else scrollToSection(id);
+  };
 
   return (
     <section
@@ -29,12 +39,12 @@ const Hero = () => {
 
           {/* LEFT SIDE */}
           <div className="w-full lg:w-[32%] min-h-[260px] lg:min-h-[600px] 
-          bg-emerald-50 dark:bg-black 
+          bg-emerald-50/20 dark:bg-black/20
           flex items-center justify-center 
           p-6 lg:p-8">
             <img
-              src="/images.webp"
-              alt="Decoration"
+              src={portfolio.hero.image || "/images.webp"}
+              alt={`${portfolio.hero.name} introduction`}
               className="w-60 sm:w-72 lg:w-full max-w-xs object-contain"
             />
           </div>
@@ -59,12 +69,12 @@ const Hero = () => {
               >
                 <p className="text-3xl sm:text-4xl lg:text-5xl font-semibold 
                 text-slate-500 dark:text-zinc-400">
-                  Hi, I'm
+                  {portfolio.hero.greeting}
                 </p>
 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold 
                 text-emerald-600 dark:text-violet-500 leading-tight mt-2">
-                  Parth Chavan
+                  {portfolio.hero.name}
                 </h1>
               </motion.div>
 
@@ -76,7 +86,7 @@ const Hero = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 1.4 }}
               >
-                Full Stack Developer | Tech Explorer
+                {portfolio.hero.role}
               </motion.p>
 
               {/* DESCRIPTION */}
@@ -89,12 +99,11 @@ const Hero = () => {
                 animate={inView ? { opacity: 1 } : {}}
                 transition={{ duration: 1.6 }}
               >
-                <h2>
-                  <Typewriter text="Passionate about building interactive web apps and backend systems." />
-                </h2>
-                <h2>
-                  <Typewriter text="Always exploring new technologies and turning ideas into scalable software." />
-                </h2>
+                {portfolio.hero.descriptions.map((description, index) => (
+                  <h2 key={`${index}-${description}`}>
+                    <Typewriter text={description} />
+                  </h2>
+                ))}
               </motion.div>
 
               {/* BUTTONS */}
@@ -118,12 +127,9 @@ const Hero = () => {
                   dark:bg-violet-600 dark:hover:bg-violet-700
                   transition-all duration-300
                   shadow-md hover:shadow-lg"
-                  onClick={() => {
-                    const section = document.getElementById("projects");
-                    if (section) section.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => moveToSection("projects")}
                 >
-                  View My Work
+                  {portfolio.hero.primaryButton}
                 </motion.button>
 
                 {/* SECONDARY */}
@@ -133,18 +139,11 @@ const Hero = () => {
                   className="px-8 py-3 
                   rounded-full 
                   text-sm sm:text-base font-medium
-                  border-2 
-                  border-emerald-600 text-emerald-600
-                  hover:bg-emerald-600 hover:text-white
-                  dark:border-violet-500 dark:text-violet-400
-                  dark:hover:bg-violet-600 dark:hover:text-white
+                  border-2 hero-contact-button
                   transition-all duration-300"
-                  onClick={() => {
-                    const section = document.getElementById("contact");
-                    if (section) section.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => moveToSection("contact")}
                 >
-                  Get in Touch
+                  {portfolio.hero.secondaryButton}
                 </motion.button>
               </motion.div>
             </div>

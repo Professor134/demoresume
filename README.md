@@ -1,79 +1,27 @@
-# React + Vite
+# Portfolio and content dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This React/Vite portfolio keeps its published website content in [`public/portfolio.json`](./public/portfolio.json). It does not use a database. The site reads that file at runtime, and the admin dashboard can commit changes to it through GitHub's Contents API.
 
-Currently, two official plugins are available:
+## Open the dashboard
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Run `npm install` and `npm run dev`, or open the deployed portfolio.
+2. Skip the intro video if it is playing.
+3. Double-click or double-tap the portfolio logo in the navigation bar.
+4. Sign in with a GitHub fine-grained personal access token that has **Contents: Read and write** permission for this repository. The default repository fields are `Professor134/demoresume` on the `main` branch.
+5. Edit the Home page, About and timeline, Skills, Projects, Contact and footer, or Brand and design sections. Drag skill badges in the Skills preview or set their X/Y percentages; drag handles and arrow buttons reorder repeatable entries. Light and dark themes have independent accent colors. Edits are saved as a draft in that browser.
+6. To publish for other visitors, open **Publishing** and select **Publish changes**. This creates `public/portfolio.json` on the selected branch if it is missing, or updates it if it already exists. Wait for the hosting provider's deployment to finish.
 
-## Expanding the ESLint configuration
+Create a repository-scoped token at [GitHub fine-grained personal access tokens](https://github.com/settings/personal-access-tokens/new). The dashboard checks that the account can write to the selected repository. GitHub token permissions should be limited to this repository.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Images, drafts, and access
 
-## to update react ---only when to working with old 
-npm install @vitejs/plugin-react --save-dev
+- Image fields accept a URL, a path to a file in `public/`, or an uploaded image up to 2 MB. Uploaded images are embedded in the JSON file.
+- Drafts stay in that browser's local storage after editing and publishing. Use **Export current content** or **Export JSON** to download a backup.
+- The token is held only in dashboard memory for the active page and is not included in local drafts or portfolio JSON. Sign in again after closing or reloading the page; do not use a shared or untrusted browser.
+- Since this is a static website, GitHub is the source of truth for content shared with visitors. Editing a local draft alone does not publish it.
 
-### instruction 
-  # Tailwind 
-    npm install -D tailwindcss@3 postcss autoprefixer
-    npx tailwindcss init -p
-    1.inside tailwind.config.js type this
-       /** @type {import('tailwindcss').Config} */
-        export default {
-        content: [
-            "./index.html",
-            "./src/*/.{js,jsx,ts,tsx}",
-        ],
-        theme: {
-            extend: {},
-        },
-        plugins: [],
-        } 
-    2.inside index.css
-        @tailwind base;
-        @tailwind components;
-        @tailwind utilities;
-    3.create jsconfig.json 
-        {
-        "compilerOptions": {
-            "baseUrl": ".",
-            "paths": {
-            "@/*": ["./src/*"]
-            }
-        }
-        }
-    4.inside vite.config.js add
-        import path from "path"
+## Development
 
-        // https://vite.dev/config/
-        export default defineConfig({
-        plugins: [react()],
-        resolve: {
-            alias: {
-            "@": path.resolve(__dirname, "./src"),
-            },
-        },
-        })
-
-  # shadecn
-    npx shadcn@latest init
-    npx shadcn@latest add button
-    npx shadcn@latest add input
-  # sonar
-    npm install sonner
-    
-
-# fontausom install
-npm install --save @fortawesome/fontawesome-svg-core
-npm install --save @fortawesome/free-solid-svg-icons
-npm install --save @fortawesome/react-fontawesome
-
-# frame-motion
-npm install framer-motion
-
-npm install framer-motion react-intersection-observer
-
-# rive 
-npm install @rive-app/react-canvas
-
+- `npm run dev` — start the local Vite development server.
+- `npm run build` — create the production build.
+- `npm run lint` — run ESLint.

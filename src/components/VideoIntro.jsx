@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function VideoIntro({ onEnd }) {
+export default function VideoIntro({ onEnd, src }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function VideoIntro({ onEnd }) {
         playsInline
         preload="auto"
       >
-        <source src="/ayo.mp4" type="video/mp4" />
+        <source src={src || "/ayo.mp4"} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

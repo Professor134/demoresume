@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import logo_l from "../assets/logo_l.png";
 import logo_d from "../assets/logo_d.png";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePortfolio } from "../data/PortfolioContext";
+import { scrollToSection } from "../utils/scrollToSection";
+import { useLenis } from "lenis/react";
 
 const sections = ["home", "profile", "projects", "skills", "contact"];
 
-const Navbar = () => {
+const Navbar = ({ onAdminOpen }) => {
+  const portfolio = usePortfolio();
+  const lenis = useLenis();
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const lastLogoTap = useRef(0);
 
   const handleScroll = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActive(id);
-    }
+    const target = document.getElementById(id);
+    if (lenis && target) lenis.scrollTo(target, { offset: -76, duration: 1.5 });
+    else scrollToSection(id);
+    setActive(id);
   };
 
   useEffect(() => {
@@ -41,7 +46,7 @@ const Navbar = () => {
     <motion.nav
       className="
         fixed top-0 left-0 w-full z-50
-        bg-[#F9FEFB] dark:bg-[#0B0B0F]
+        bg-[#F9FEFB]/70 dark:bg-[#0B0B0F]/70
         border-b border-[#D1FAE5] dark:border-[#2E2E3A]
         shadow-sm
       "
@@ -57,22 +62,37 @@ const Navbar = () => {
       ">
 
         {/* Logo */}
-        <div onClick={() => handleScroll("home")} className="cursor-pointer flex items-center">
+        <button
+          type="button"
+          aria-label="Portfolio logo. Double-click to open admin sign-in."
+          onClick={() => handleScroll("home")}
+          onDoubleClick={onAdminOpen}
+          onTouchEnd={() => {
+            const now = Date.now();
+            if (now - lastLogoTap.current < 400) {
+              onAdminOpen?.();
+              lastLogoTap.current = 0;
+            } else {
+              lastLogoTap.current = now;
+            }
+          }}
+          className="cursor-pointer flex items-center border-0 bg-transparent p-0"
+        >
           <motion.img
-            src={logo_l}
+            src={portfolio.site.logoLight || logo_l}
             alt="Logo"
             className="w-12 h-12 block dark:hidden"
             whileHover={{ rotateY: 360 }}
             transition={{ duration: 1.5 }}
           />
           <motion.img
-            src={logo_d}
+            src={portfolio.site.logoDark || logo_d}
             alt="Logo"
             className="w-12 h-12 hidden dark:block"
             whileHover={{ rotateY: 360 }}
             transition={{ duration: 1.5 }}
           />
-        </div>
+        </button>
 
         {/* Hamburger */}
         <div className="md:hidden">
@@ -95,7 +115,7 @@ const Navbar = () => {
                 absolute md:static
                 top-[70px] left-0
                 w-full md:w-auto
-                bg-[#F9FEFB] dark:bg-[#0B0B0F]
+                bg-[#F9FEFB]/85 dark:bg-[#0B0B0F]/85
                 md:bg-transparent
                 flex flex-col md:flex-row
                 items-center

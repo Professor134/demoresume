@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createElement } from "react";
 import { motion } from "framer-motion";
 import {
   FaInstagram,
@@ -7,18 +7,22 @@ import {
   FaLinkedin,
   FaGithub,
 } from "react-icons/fa";
+import { usePortfolio } from "../data/PortfolioContext";
 
-const socialLinks = [
-  { icon: <FaLinkedin size={22} />, url: "https://www.linkedin.com/in/parth-chavan-6284152a8", label: "LinkedIn" },
-  { icon: <FaGithub size={22} />, url: "https://github.com/Professor134", label: "GitHub" },
-  { icon: <FaInstagram size={22} />, url: "https://www.instagram.com/parthchavan653/", label: "Instagram" },
-  { icon: <FaPinterest size={22} />, url: "https://pin.it/11BuroVx1", label: "Pinterest" },
-  { icon: <FaWhatsapp size={22} />, url: "https://wa.me/qr/7WYVGT4ISCPJL1", label: "WhatsApp" },
-];
+const socialIcons = {
+  linkedin: FaLinkedin,
+  github: FaGithub,
+  instagram: FaInstagram,
+  pinterest: FaPinterest,
+  whatsapp: FaWhatsapp,
+};
 
 const Footer = () => {
+  const portfolio = usePortfolio();
+  const { footer, contact } = portfolio;
+
   return (
-    <footer className="w-full bg-[#F9FEFB] dark:bg-[#0B0B0F] text-[#0F172A] dark:text-[#F5F3FF] mt-2 py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="w-full bg-[#F9FEFB]/30 dark:bg-[#0B0B0F]/30 text-[#0F172A] dark:text-[#F5F3FF] mt-2 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full flex flex-col items-center">
 
         {/* Main Card */}
@@ -26,7 +30,7 @@ const Footer = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full bg-white dark:bg-[#161621] 
+          className="w-full bg-white/35 dark:bg-[#161621]/35
           border border-[#D1FAE5] dark:border-[#2E2E3A]
           rounded-2xl shadow-[0_10px_30px_rgba(16,185,129,0.08)] 
           dark:shadow-[0_15px_40px_rgba(0,0,0,0.6)]
@@ -35,19 +39,19 @@ const Footer = () => {
 
           {/* Left Section */}
           <div className="flex-1 space-y-2 sm:space-y-3 text-sm sm:text-base">
-            <h3 className="text-xl font-semibold">Parth Chavan</h3>
-            <p className="text-[#334155] dark:text-[#D4D4D8]">IT Developer & Designer</p>
-            <p className="text-[#64748B] dark:text-[#A1A1AA]">Based in Pune, India</p>
+            <h3 className="text-xl font-semibold">{footer.name}</h3>
+            <p className="text-[#334155] dark:text-[#D4D4D8]">{footer.role}</p>
+            <p className="text-[#64748B] dark:text-[#A1A1AA]">{footer.location}</p>
             <p className="text-[#64748B] dark:text-[#A1A1AA]">
               Email:{" "}
               <a
-                href="mailto:parthchavan653@gmail.com"
+                href={`mailto:${footer.email}`}
                 className="underline text-[#16A34A] dark:text-[#A78BFA] hover:opacity-80"
               >
-                parthchavan653@gmail.com
+                {footer.email}
               </a>
             </p>
-            <p className="text-[#64748B] dark:text-[#A1A1AA]">Phone: +91 9145414488</p>
+            <p className="text-[#64748B] dark:text-[#A1A1AA]">Phone: {footer.phone}</p>
           </div>
 
           {/* Divider */}
@@ -56,26 +60,29 @@ const Footer = () => {
           {/* Right Section */}
           <div className="flex-1 flex flex-col items-center text-center space-y-3 sm:space-y-4">
             <img
-              src="ayo.png"
-              alt="Parth Chavan"
+              src={footer.portrait}
+              alt={footer.name}
               className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover 
               border-2 border-[#16A34A] dark:border-[#7C3AED]
               shadow-md transition-transform duration-300 scale-100 hover:scale-105"
             />
             <p className="text-sm italic text-[#334155] dark:text-[#D4D4D8]">
-              "Develop to Learn. Learn to Develop."
+              {`"${footer.quote}"`}
             </p>
             <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#A1A1AA]">
-              Passionate about building impactful digital experiences.
+              {footer.description}
             </p>
           </div>
         </motion.div>
 
         {/* Social Icons */}
         <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8">
-          {socialLinks.map((link, idx) => (
+          {contact.socials.map((link, idx) => {
+            const label = link.label || "Social";
+            const Icon = socialIcons[label.toLowerCase()] ?? FaGithub;
+            return (
             <motion.a
-              key={idx}
+              key={`${label}-${idx}`}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -90,14 +97,15 @@ const Footer = () => {
               dark:hover:shadow-[0_0_25px_rgba(124,58,237,0.35)]"
               title={link.label}
             >
-              {link.icon}
+              {createElement(Icon, { size: 22 })}
             </motion.a>
-          ))}
+            );
+          })}
         </div>
 
         {/* Bottom Copyright */}
         <p className="text-xs mt-8 text-[#64748B] dark:text-[#A1A1AA] text-center">
-          © {new Date().getFullYear()} Parth Chavan. All rights reserved.
+          © {new Date().getFullYear()} {footer.name}. All rights reserved.
         </p>
 
       </div>

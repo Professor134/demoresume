@@ -2,31 +2,10 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
 import PcRive from "pc-rive";
-
-const socialLinks = [
-  {
-    url: "https://www.instagram.com/parthchavan653/?utm_source=qr&r=nametag",
-    label: "Instagram",
-    video: "/insta.mp4",
-  },
-  {
-    url: "https://www.linkedin.com/in/parth-chavan-6284152a8?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    label: "LinkedIn",
-    video: "linkedin.mp4",
-  },
-  {
-    url: "https://pin.it/11BuroVx1",
-    label: "Pinterest",
-    video: "pintrest.mp4",
-  },
-  {
-    url: "https://wa.me/qr/7WYVGT4ISCPJL1",
-    label: "WhatsApp",
-    video: "whatsapp.mp4",
-  },
-];
+import { usePortfolio } from "../data/PortfolioContext";
 
 const Contact = () => {
+  const { contact, site } = usePortfolio();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -57,16 +36,16 @@ const Contact = () => {
 
   return (
  <div className="relative w-full m-0 p-0 bg-transparent transition-colors duration-500">
-  <div className="w-full max-w-full mx-auto rounded-2xl overflow-hidden shadow-xl border border-[#D1FAE5] dark:border-[#2E2E3A] bg-white dark:bg-[#161621] transition-colors duration-500">
+  <div className="w-full max-w-full mx-auto rounded-2xl overflow-hidden shadow-xl border border-[#D1FAE5] dark:border-[#2E2E3A] bg-white/25 dark:bg-[#161621]/25 transition-colors duration-500">
       
         <div className="flex flex-col md:flex-row">
 
           {/* Left Side Animation */}
-          <div className="w-full md:w-1/2 bg-[#ECFDF5] dark:bg-[#111118] flex items-center justify-center p-6 md:p-10">
+          <div className="w-full md:w-1/2 bg-[#ECFDF5]/20 dark:bg-[#111118]/20 flex items-center justify-center p-6 md:p-10">
             <div className="w-full max-w-md h-72 sm:h-80 md:h-[420px]">
               <PcRive
-                src="contact.riv"
-                stateMachines="State Machine 1"
+                src={site.contactRive}
+                stateMachines={site.contactRiveStateMachine}
                 autoplay={true}
                 className="w-full h-full object-contain"
               />
@@ -86,7 +65,7 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              Contact Form
+              {contact.title}
             </motion.h2>
 
             <form onSubmit={sendEmail} className="space-y-5">
@@ -148,9 +127,8 @@ const Contact = () => {
               )}
             </form>
 
-            {/* Social Links */}
             <div className="flex flex-wrap justify-center md:justify-start gap-5 mt-10">
-              {socialLinks.map((link, idx) => (
+              {contact.socials.map((link, idx) => (
                 <motion.a
                   key={idx}
                   href={link.url}
@@ -161,13 +139,19 @@ const Contact = () => {
                   className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-[#D1FAE5] dark:border-[#2E2E3A] shadow-md hover:shadow-lg transition-all"
                   title={link.label}
                 >
-                  <video
-                    src={link.video}
-                    autoPlay
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  {link.video ? (
+                    <video
+                      src={link.video}
+                      autoPlay
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-full w-full items-center justify-center bg-[#ECFDF5] text-xs font-semibold text-[#166534] dark:bg-[#1E1E2A] dark:text-[#C4B5FD]">
+                      {link.label}
+                    </span>
+                  )}
                 </motion.a>
               ))}
             </div>
